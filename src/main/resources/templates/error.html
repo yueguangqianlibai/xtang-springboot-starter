@@ -1,0 +1,26 @@
+<!DOCTYPE HTMl>
+<html>
+<head>
+    <title>404</title>
+    <!--<link rel="stylesheet" href="../css/style.css" type="text/css" media="all" />-->
+    <link rel="stylesheet" th:href="@{/static/css/style.css}" type="text/css" media="all" />
+</head>
+<body>
+
+<div class="wrap">
+    <h1>xTang error view</h1>
+    <div class="banner"><img src="../static/images/fuel-404-logo.png" alt="" /></div>
+    <div class="search">
+        <form>
+            <input type="text"  value="" placeholder="drop your email " />
+            <input type="submit" value="" />
+        </form>
+    </div>
+</div>
+<div class="copy">
+    <h3 style="color: #eeeeee">发生错误!~~</h3>
+    <h3 style="color: #eeeeee">错误地址:</h3><div th:text="${url}"></div>
+    <h3 style="color: #eeeeee">错误信息:</h3><div th:text="${exception.message}"></div>
+</div>
+</body>
+</html>

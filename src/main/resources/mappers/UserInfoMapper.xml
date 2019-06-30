@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xtang.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.xtang.pojo.UserInfo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="userId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="realName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="birth" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="eamil" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xtang.pojo.UserInfo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="userId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="realName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="birth" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="eamil" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="desc" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userId, realName, birth, phone, eamil, address, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    desc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_userinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_userinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xtang.pojo.UserInfo">
+    insert into t_userinfo (id, userId, realName, 
+      birth, phone, eamil, 
+      address, create_time, desc
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{birth,jdbcType=TIMESTAMP}, #{phone,jdbcType=VARCHAR}, #{eamil,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{desc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xtang.pojo.UserInfo">
+    insert into t_userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="realname != null">
+        realName,
+      </if>
+      <if test="birth != null">
+        birth,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="eamil != null">
+        eamil,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="desc != null">
+        desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="eamil != null">
+        #{eamil,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc != null">
+        #{desc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xtang.pojo.UserInfo">
+    update t_userinfo
+    <set>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        realName = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        birth = #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="eamil != null">
+        eamil = #{eamil,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc != null">
+        desc = #{desc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xtang.pojo.UserInfo">
+    update t_userinfo
+    set userId = #{userid,jdbcType=VARCHAR},
+      realName = #{realname,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=TIMESTAMP},
+      phone = #{phone,jdbcType=VARCHAR},
+      eamil = #{eamil,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      desc = #{desc,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xtang.pojo.UserInfo">
+    update t_userinfo
+    set userId = #{userid,jdbcType=VARCHAR},
+      realName = #{realname,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=TIMESTAMP},
+      phone = #{phone,jdbcType=VARCHAR},
+      eamil = #{eamil,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

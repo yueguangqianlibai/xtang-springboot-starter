@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>test.html模板~~~~</title>
+    <!--<script th:src="@{/static/js/test.js}"></script>-->
+</head>
+<body>
+thymeleaf  test.html 练习模板引擎
+<div>
+    用户姓名<input th:id="${user.username}" th:name="${user.username}" th:value="${user.username}"/><br/>
+    用户邮箱<input th:value="${user.email}"/><br/>
+    用户电话<input th:value="${user.phone}"/><br/>
+    <!--用户生日<input th:value="${user.createTime}"/><br/>-->
+    <br/>
+    用户生日<input th:value="${#dates.format(user.createTime,'yyyy-MM-dd hh:mm:ss a')}"/>
+    <br/>
+</div>
+
+<br/><br/><br/>
+<div th:object="${user}">
+    用户姓名<input th:id="*{username}" th:name="*{username}" th:value="*{username}"/><br/>
+    用户邮箱<input th:value="*{email}"/><br/>
+    用户电话<input th:value="*{phone}"/><br/>
+    用户生日<input th:value="*{createTime}"/><br/>
+    用户生日<input th:value="*{#dates.format(createTime,'yyyy-MM-dd hh:mm:ss a')}"/>
+</div>
+<br/><br/><br/>
+text和utext：<br/>
+<span th:text="${user.desc}">abc</span>
+<span th:utext="${user.desc}">abc</span>
+<br/><br/><br/>
+
+URL:
+<a href="" th:href="@{http://baidu.com}">外链</a>
+
+<br/><br/><br/>
+
+FORM表单：<br/>
+<form th:action="@{/th/postform}" th:object="${user}" th:method="post">
+    <input type="text" th:field="*{username}"/><br/>
+    <input type="text" th:field="*{age}"/><br/>
+    <input type="text" th:field="*{phone}"/>
+    <input type="submit"/>
+</form>
+<br/><br/><br/>
+
+比较实例：<br/>
+<div th:if="${user.age} == 18">等于十八岁</div>
+<div th:if="${user.age} gt 18">大于十八岁</div>
+<div th:if="${user.age} lt 18">小于十八岁</div>
+<div th:if="${user.age} ge 18">大于等于十八岁</div>
+<div th:if="${user.age} le 18">小于等于十八岁</div>
+<br/><br/><br/>
+选择判断实例:<br/>
+<select>
+    <option>选择框</option>
+    <option th:selected="${user.username eq 'xiaowu'}">xiaowu</option>
+    <option th:selected="${user.username eq 'xiaoliu'}">xiaoliu</option>
+    <option th:selected="${user.username eq 'xiaotang'}">xiaotang</option>
+</select>
+<br/><br/><br/>
+循环实例：<br/>
+<table>
+    <tr>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>年龄提示</th>
+        <th>生日</th>
+    </tr>
+    <tr th:each="person:${userList}">
+        <td th:text="${person.username}"></td>
+        <td th:text="${person.age}"></td>
+        <td th:text="${person.age gt 18} ? 你大于十八岁 : 你还年轻">18岁</td>
+        <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd hh:mm:ss a')}"></td>
+    </tr>
+</table>
+<br/><br/><br/>
+判断实例：<br/>
+<div th:switch="${user.username}">
+    <p th:case="xiaotang">xiaotang</p>
+    <p th:case="#{roles.manager}">普通管理员</p>
+    <p th:case="#{roles.superadmin}">超级管理员</p>
+    <p th:case="*">其他用户</p>
+</div>
+</body>
+</html>
