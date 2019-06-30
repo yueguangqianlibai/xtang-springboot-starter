@@ -1,7 +1,9 @@
 package com.xtang.dao;
 
 import com.xtang.pojo.UserInfo;
+import org.springframework.stereotype.Repository;
 
+@Repository(value = "userInfoDao")
 public interface UserInfoMapper {
     int deleteByPrimaryKey(String id);
 
