@@ -5,7 +5,9 @@ import java.util.Date;
 
 import org.n3r.idworker.strategy.DefaultWorkerIdStrategy;
 import org.n3r.idworker.utils.Utils;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class Sid {
     private static WorkerIdStrategy workerIdStrategy;
     private static IdWorker idWorker;

@@ -41,8 +41,6 @@ public interface UserService {
 
     /**
      * 查询用户列表
-     * @param users
-     * @return
      */
-    public List<Users> queryUserList(Users users);
+    public List<Users> queryUserList(Integer pageNum,Integer pageSize);
 }

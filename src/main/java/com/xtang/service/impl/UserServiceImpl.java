@@ -1,5 +1,7 @@
 package com.xtang.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xtang.dao.UserInfoMapper;
 import com.xtang.dao.UsersMapper;
 import com.xtang.pojo.Users;
@@ -16,14 +18,12 @@ import java.util.List;
  * @Author: xTang
  * @Description:
  */
-@Service("iUserService")
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UsersMapper usersMapper;
 
-    @Autowired
-    private UserInfoMapper userInfoMapper;
 
     /**
      * 保存用户
@@ -60,9 +60,6 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 查询用户
-     *
-     * @param userId
-     * @return
      */
     @Override
     public Users queryUserById(String userId) {
@@ -70,15 +67,12 @@ public class UserServiceImpl implements UserService {
         return newUser;
     }
 
-    /**
-     * 查询用户列表
-     *
-     * @param users
-     * @return
-     */
     @Override
-    public List<Users> queryUserList(Users users) {
+    public List<Users> queryUserList(Integer pageNum,Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
         List<Users> usersArrayList = usersMapper.selectAll();
+        PageInfo result = new PageInfo();
+        result.setList(usersArrayList);
         return usersArrayList;
     }
 }
