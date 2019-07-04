@@ -4,6 +4,7 @@ import com.xtang.common.XTangJSONResult;
 import com.xtang.pojo.Users;
 import com.xtang.utils.JsonUtils;
 import com.xtang.utils.RedisOperator;
+import com.xtang.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,9 +28,13 @@ public class RedisController {
     @Autowired
     private RedisOperator redisOperator;
 
+    @Autowired
+    private RedisUtils redisUtils;
+
     @RequestMapping("test")
     public XTangJSONResult test(){
-        stringRedisTemplate.opsForValue().set("kay","(value)hello redis~~");
+        redisUtils.set("key-test","value-test");
+        stringRedisTemplate.opsForValue().set("key","(value)hello redis~~");
 
         Users user = new Users();
         user.setId("1000001");
@@ -38,6 +43,7 @@ public class RedisController {
         user.setCreateTime(new Date());
         stringRedisTemplate.opsForValue().set("json:user", JsonUtils.objectToJson(user));
         Users jsonUser = JsonUtils.jsonToPojo(stringRedisTemplate.opsForValue().get("json:user"),Users.class);
+        String value = redisUtils.get("key-test");
         return XTangJSONResult.ok(jsonUser);
     }
 
